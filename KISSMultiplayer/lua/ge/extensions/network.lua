@@ -360,7 +360,7 @@ local function connect(addr, player_name, is_public)
     print(k.." "..v)
   end
   if #missing_mods > 0 then
-    -- Do not allow public servers to force mod downloads if user rejects
+    -- Do not allow public servers to force mod downloads
     if M.is_server_public then
       kissui.chat.add_message("Connection rejected: Missing mods.", kissui.COLOR_RED)
       disconnect()
