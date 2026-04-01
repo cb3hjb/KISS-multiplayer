@@ -337,7 +337,7 @@ local function connect(addr, player_name, is_public)
       name = player_name,
       secret = generate_secret(server_info.server_identifier),
       steamid64 = steamid64,
-      client_version = {0, 7, 1}
+      client_version = {0, 7}
     }
   }
   send_data(client_info, true)
