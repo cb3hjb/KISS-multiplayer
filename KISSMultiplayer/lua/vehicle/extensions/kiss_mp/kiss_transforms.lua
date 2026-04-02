@@ -26,7 +26,6 @@ M.ang_force = 100
 M.debug = false
 M.lerp_factor = 30.0
 
-
 local function predict(dt)
   M.target_transform.velocity = M.received_transform.velocity + M.received_transform.acceleration * M.received_transform.time_past
   local distance =  M.target_transform.position:distance(vec3(obj:getPosition()))
@@ -37,11 +36,17 @@ local function predict(dt)
     M.target_transform.position = p
   end
 
+  --M.target_transform.angular_velocity = M.received_transform.angular_velocity + M.received_transform.angular_acceleration * M.received_transform.time_past
+  --local rotation_delta = M.target_transform.angular_velocity * M.received_transform.time_past
+  
   local rotation_delta = (M.received_transform.angular_velocity + M.received_transform.angular_acceleration * M.received_transform.time_past) * M.received_transform.time_past
   
-  if rotation_delta:length() > 0 then local axis = rotation_delta:normalized() local half_angle = rotation_delta:length() * 0.5 local q_delta = quat(axis.x * math.sin(half_angle), axis.y * math.sin(half_angle), axis.z * math.sin(half_angle), math.cos(half_angle))
-
-  M.target_transform.rotation = quat(M.received_transform.rotation) * q_delta
+  if rotation_delta:length() > 0 then
+    local axis = rotation_delta:normalized()
+	local half_angle = rotation_delta:length() * 0.5
+	local q_delta = quat(axis.x * math.sin(half_angle), axis.y * math.sin(half_angle), axis.z * math.sin(half_angle), math.cos(half_angle))
+    M.target_transform.rotation = quat(M.received_transform.rotation) * q_delta
+  end
 end
 
 local function try_rude()
